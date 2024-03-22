@@ -3,7 +3,7 @@
 ########################################################
 import importlib
 
-def keras_model_loader(model_name):
+def load_keras_model(model_name):
     """
     Return the Keras model instance and its corresponding preproc_fn for the given model name.
 
@@ -105,7 +105,7 @@ def keras_model_loader(model_name):
 
 
 if __name__ == '__main__':
-    model_name = "mobilenetv2"
 
     # Load model
-    model, preproc_fn   = keras_model_loader(model_name)
+    model_name = "mobilenetv2"
+    model, preproc_fn   = load_keras_model(model_name)
