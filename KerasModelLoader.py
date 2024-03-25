@@ -14,10 +14,10 @@ def load_keras_model(model_name):
     the Keras model instance and its corresponding preproc_fn. If the mode name is not found in the dictionary, return None.
     """
 
+    """
+    {model_name in lowercase:[keras.applications Module, model Fuction, modelparams(dict), preprocessing function], ...}
+    """
     KerasModels = {
-        """
-        {model_name in lowercase:[keras.applications Module, model Fuction, modelparams(dict), preprocessing function], ...}
-        """
         "efficientnetb0": ["efficient", "EfficientNetB0", {}, lambda x: x],
         "efficientnetb1": ["efficient", "EfficientNetB1", {}, lambda x: x],
         "efficientnetb2": ["efficient", "EfficientNetB2", {}, lambda x: x],
