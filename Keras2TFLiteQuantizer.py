@@ -134,6 +134,21 @@ class Keras2TFLiteQuantizer:
             return (self.tflite_model, tflite_model_file)
         return (self.tflite_model)
 
+    def all_tf_support_quant(inference_input_type=None, inference_output_type=None):
+        quant_tfls = {}
+        quant_tfls["tfl_model"]  = tfl_quantizer.tfl_no_quant()
+        quant_tfls["tfl_dynamic_fp16"]  = tfl_quantizer.tfl_dynamic_range_quant(weight_type="fp16")
+        quant_tfls["tfl_dynamic_int8"]  = tfl_quantizer.tfl_dynamic_range_quant(weight_type="int8")
+        quant_tfls["tfl_full_int_8x8"]  = tfl_quantizer.tfl_full_integer_quant(signal_type="int8", weight_type="int8", if_input_type="float32", if_output_type="float32")
+        quant_tfls["tfl_full_int_16x8"] = tfl_quantizer.tfl_full_integer_quant(signal_type="int16", weight_type="int8", if_input_type="float32", if_output_type="float32")
+        if inference_input_type and inference_output_type:
+            quant_tfls['tfl_full_int_8x8_if8'] = tfl_quantizer.tfl_full_integer_quant(signal_type="int8", weight_type="int8", if_input_type=inference_input_type, if_output_type=inference_output_type)
+        return quant_tfls
+
+    
+    def __call__(self):
+        return self.all_tfsupport_quant()
+    
 
     def _representative_data_gen(self):
         """Generate representative data for quantization.
